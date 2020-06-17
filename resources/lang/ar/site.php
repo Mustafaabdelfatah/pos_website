@@ -32,7 +32,7 @@ return [
 
     'clients' => 'العملاء',
     'client_name' => 'اسم العميل',
-    'phone' => 'التلفون',
+    'phone' => 'الهاتف',
     'address' => 'العنوان',
     'previous_orders' => 'الطلبات السابقه',
     'orders' => 'الطلبات',

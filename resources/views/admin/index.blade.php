@@ -18,7 +18,9 @@
     <!-- Main content -->
     <section class="content">
         @include('admin.layouts.message')
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        <div>
     </section>
         <!-- /.content -->
     </div>

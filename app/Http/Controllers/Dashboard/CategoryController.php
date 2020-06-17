@@ -12,14 +12,13 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
 
+        $categories = Category::when($request->search, function($q) use ($request){
 
-        $categories = Category::when($request->search,function($q) use($request) {
-
-
-            return $q->where('name','like','%' . $request->search .'%');
-
+                return $q->whereTranslationLike('name','%'.$request->search.'%');
 
         })->latest()->paginate(5);
+       // dd($categories);
+
         return view('dashboard.categories.index',compact('categories'));
 
     }//end of index

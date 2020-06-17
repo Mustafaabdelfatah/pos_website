@@ -1,10 +1,10 @@
 @extends('layouts.dashboard.index')
 
 @push('title')
-<h1>@lang('site.categories')</h1>
+<h1>@lang('site.clients')</h1>
 <ol class="breadcrumb">
     <li><a href="{{ url('/dashboard')}}"><i class="fa fa-dashboard"></i>{{ trans('site.dashboard')}}</a></li>
-    <li class="active">{{ trans('site.categories')}}</li>
+    <li class="active">{{ trans('site.clients')}}</li>
 </ol>
 @endpush
 @section('content')
@@ -15,11 +15,11 @@
 
     <div class="box-header with-border">
 
-        <h3 class="box-title">@lang('site.categories') <small style="color:#3c8dbc"> {{ $categories->total()}} </small></h3>
+        <h3 class="box-title">@lang('site.clients') <small style="color:#3c8dbc"> {{ $clients->total()}} </small></h3>
 
         <span style="height:20px;display:block"></span>
 
-        <form action="{{route('dashboard.categories.index')}}" method="get">
+        <form action="{{route('dashboard.clients.index')}}" method="get">
 
             <div class="row">
                 <div class="col-md-4">
@@ -29,8 +29,8 @@
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
                         @lang('site.search')</button>
 
-                    @if (auth()->user()->hasPermission('create_categories'))
-                        <a href="{{ route('dashboard.categories.create')}}" class="btn btn-info"><i class="fa fa-plus"></i>
+                    @if (auth()->user()->hasPermission('create_clients'))
+                        <a href="{{ route('dashboard.clients.create')}}" class="btn btn-info"><i class="fa fa-plus"></i>
                         @lang('site.add')</a>
                         @else
                         <a href="#" class="btn btn-info  disabled"><i class="fa fa-plus"></i>
@@ -46,43 +46,51 @@
     <!-- box body -->
     <div class="box-body">
 
-        @if($categories->count() > 0)
+        @if($clients->count() > 0)
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>@lang('site.name')</th>
-                    <th>@lang('site.products_count')</th>
-                    <th>@lang('site.related_products')</th>
+                    <th>@lang('site.phone')</th>
+                    <th>@lang('site.address')</th>
+                    <th>@lang('site.add_order')</th>
                     <th>@lang('site.action')</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($categories as $category )
+                @foreach ($clients as $client )
                 <tr>
                     <td>
-                        {{ $category->id }}
+                        {{ $client->id }}
                     </td>
                     <td>
-                        {{ $category->name }}
+                        {{ $client->name }}
                     </td>
 
                     <td>
-                        {{ $category->products->count() }}
+                        {{ implode($client->phone , '-') }}
                     </td>
                     <td>
-                        <a href="{{route('dashboard.products.index', [ 'category_id' => $category->id ]) }}" class="btn btn-info btn-sm">@lang('site.related_products')</a>
-                     </td>
+                        {{ $client->address }}
+                    </td>
+                     <td>
+                     @if (auth()->user()->hasPermission('create_orders'))
+                        <a href="{{route('dashboard.clients.orders.create',$client->id)}}" class="btn btn-primary">@lang('site.add_order')</a>
+                        @else
+                         <a href="#" class="btn btn-primary" disabled>@lang('site.add_order')</a>
 
+                     @endif
+                    </td>
 
                     <td>
 
-                        <a href="{{ route('dashboard.categories.edit', $category->id)}}"
+                        <a href="{{ route('dashboard.clients.edit', $client->id)}}"
                             class="btn btn-info btn-sm">@lang('site.edit')</a>
 
 
-                        <form action="{{ route('dashboard.categories.destroy',$category->id)}}" method="post"
+                        <form action="{{ route('dashboard.clients.destroy',$client->id)}}" method="post"
                             style="display:inline-block">
                             {{ csrf_field() }}
                             {{ method_field("delete")}}
@@ -97,7 +105,7 @@
             </tbody>
         </table><!-- end of table -->
 
-        {{ $categories->appends(request()->query())->links() }}
+        {{ $clients->appends(request()->query())->links() }}
 
         @else
         <h2>@lang('site.no_data_found')</h2>
