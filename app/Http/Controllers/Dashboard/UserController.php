@@ -129,4 +129,10 @@ class UserController extends Controller
 
         return redirect()->route('dashboard.users.index');
     }
+
+    public function logout(){
+        auth()->logout();
+        return redirect()->back();
+    }
+
 }

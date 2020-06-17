@@ -21,27 +21,27 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <form action="{{route('dashboard.clients.update',$clients->id)}}" method="post">
+        <form action="{{route('dashboard.clients.update',$client->id)}}" method="post">
             {{ csrf_field() }}
             {{ method_field('put')}}
 
 
             <div class="form-group">
                 <label> @lang('site.name')</label>
-                <input type="text" name="name" class="form-control" value="{{ $clients->name}}">
+                <input type="text" name="name" class="form-control" value="{{ $client->name}}">
             </div>
 
             @for ($i =0 ; $i < 2; $i++)
                 <div class="form-group">
                     <label> @lang('site.phone')</label>
-                    <input type="text" name="phone[]" value="{{$clients->phone[$i] ?? ''}}" class="form-control">
+                    <input type="text" name="phone[]" value="{{$client->phone[$i] ?? ''}}" class="form-control">
                 </div>
             @endfor
 
 
             <div class="form-group">
                 <label> @lang('site.address')</label>
-                <textarea name="address" class="form-control">{{ $clients->name}}</textarea>
+                <textarea name="address" class="form-control">{{ $client->name}}</textarea>
             </div>
 
 

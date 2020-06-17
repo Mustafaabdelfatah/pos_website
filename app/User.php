@@ -44,4 +44,5 @@ class User extends Authenticatable
 
     }//end of get image path
 
+
 }//end of model

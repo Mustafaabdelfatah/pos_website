@@ -70,7 +70,7 @@
                     </td>
 
                     <td>
-                        {{ implode($client->phone , '-') }}
+                        {{ is_array($client->phone) ? implode($client->phone , '-') : $client->phone }}
                     </td>
                     <td>
                         {{ $client->address }}

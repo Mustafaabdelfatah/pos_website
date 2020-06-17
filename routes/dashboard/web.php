@@ -27,14 +27,20 @@
             Route::resource('clients.orders','Client\OrderController')->except(['show']);
 
 
+            // order route
+
+            Route::resource('orders', 'OrderController');
+            Route::get('/orders/{order}/products', 'OrderController@products')->name('orders.products');
+
+
             //user route
 
             Route::resource('users','UserController')->except(['show']);
 
 
-
-
-
+            Route::get('logout','UserController@logout');
+            //return auth()->logout();
+           // return redirect()->route('login');
 
         });
 
